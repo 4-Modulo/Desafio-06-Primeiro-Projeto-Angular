@@ -1,6 +1,4 @@
 <p>pessoaslist works!</p>
-
-
 <table>
     <tr>
         <th>Nome:</th>
@@ -9,7 +7,7 @@
 
     <tr *ngFor="let pessoa of lista; let i = index">
         <td *ngIf="pessoa.idade > 30">
-            {{pessoa.nome}}
+            {{pessoa.nome}}    
         </td>
         <td *ngIf="pessoa.idade > 30">
             {{pessoa.idade}}
