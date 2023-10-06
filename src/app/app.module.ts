@@ -10,6 +10,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { PessoasdetailsComponent } from './pessoas/pessoasdetails/pessoasdetails.component';
 import { LoginComponent } from './sistema/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule
   ],
