@@ -1,0 +1,20 @@
+.main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-control{
+    border-color:black ;
+    margin-top: 100px;
+    width: 30vw;
+    height: 30vh;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-success{
+    margin-top: 25px;
+}
+
