@@ -1,20 +1,9 @@
-.main{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.login {
+    height: 100vh;
+    background-color: #f5f5f5;
 }
-
-.form-control{
-    border-color:black ;
-    margin-top: 100px;
-    width: 30vw;
-    height: 30vh;
-    gap: 5px;
-    display: flex;
-    flex-direction: column;
+form{
+    width: 20%;
+    height: 50%;
+    border: black;
 }
-
-.btn-success{
-    margin-top: 25px;
-}
-

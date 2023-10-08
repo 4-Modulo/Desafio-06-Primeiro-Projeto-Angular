@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Usuario } from '../usuario';
 import { Router } from '@angular/router';
+import { Usuario } from '../usuario';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
   roteador = inject(Router);
-
-  usuario: Usuario = new Usuario();
-
-  logar() {
-    if (this.usuario.login == "admin" && this.usuario.senha == "admin") {
-      //libero a rota
-      this.roteador.navigate(['/admin/pessoas']);
+  usuario: Usuario = new Usuario()
+  login(){
+    if(this.usuario.login ==="admin" && this.usuario.senha === "admin"){
+      this.roteador.navigate(['/app'])
+    }else{
+      alert("Login incorreto!")
     }
-    else
-      alert('Usuário ou senha incorretos');
   }
-
 }
