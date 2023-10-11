@@ -47,13 +47,13 @@ export class CarrosListarComponent {
   
   adicionar(modal: any) {
     this.carroSelecionadaParaEdicao = new Carro();
-    this.modalService.open(modal, { size: 'sm' });
+    this.modalService.open(modal, { size: 'xd' });
   }
 
   editar(modal: any, carro: Carro, indice: number) {
     this.carroSelecionadaParaEdicao = Object.assign({}, carro);
     this.indiceSelecionadoParaEdicao = indice;
-    this.modalService.open(modal, { size: 'sm' });
+    this.modalService.open(modal, { size: 'xd' });
   }
 
   addOuEditarPessoa(carro: Carro) {

@@ -48,13 +48,13 @@ export class LivrosListarComponent {
   
   adicionar(modal: any) {
     this.livroSelecionadoParaEdicao = new Livro();
-    this.modalService.open(modal, { size: 'sm' });
+    this.modalService.open(modal, { size: 'xd' });
   }
 
   editar(modal: any, pessoa: Livro, indice: number) {
     this.livroSelecionadoParaEdicao = Object.assign({}, pessoa);
     this.indiceSelecionadoParaEdiçao = indice;
-    this.modalService.open(modal, { size: 'sm' });
+    this.modalService.open(modal, { size: 'xd' });
   }
   addOuEditarLivros(livro: Livro) {
     if (livro.id === 0) {
