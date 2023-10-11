@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { Pessoa } from '../pessoa';
+import { Pessoa } from '../Pessoa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { PessoaService } from '../pessoa.service';
 
 @Component({
   selector: 'app-pessoas-listar',
@@ -9,38 +9,76 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./pessoas-listar.component.scss'],
 })
 export class PessoasListarComponent {
-  pessoas: Pessoa[] = []
-  index!: number
-  pessoaSelecionada = new Pessoa("");
-  modalService = inject(NgbModal);
+  lista: Pessoa[] = [];
+  pessoaSelecionadaParaEdicao: Pessoa = new Pessoa();
+  indiceSelecionadoParaEdicao!: number;
 
-  constructor() {}
-  abrirModal(template: any){
-    this.pessoaSelecionada = new Pessoa("")
-    this.modalService.open(template, { size: 'lg' });
+  constructor(
+    private modalService: NgbModal,
+    private pessoaService: PessoaService
+  ) {
+    this.listAll();
   }
-  salvarPessoa(pessoa: Pessoa){ 
-    let modoNovo = true;
-    if(pessoa.id > 0){
-      modoNovo = false;
-    }else{
-      if(this.pessoas.length != 0){
-        let novoID = this.pessoas[this.pessoas.length-1].id+1
-        pessoa.id = novoID
-      }else{
-        pessoa.id = 1;  
+
+  delete(id: number) {
+    this.pessoaService.delete(id).subscribe({
+      next: () => {
+        console.error('Exclusão bem-sucedida!');
+        this.listAll();
+      },
+      error: erro => {
+        console.error('Erro ao excluir a pessoa. Consulte o console para mais detalhes.');
+        console.error(erro);
       }
-    }
-    if(modoNovo){
-      this.pessoas.push(pessoa);
-    }else{
-      this.pessoas[this.index] = pessoa
-    }
-
-    this.modalService.dismissAll();
+    });
   }
-  editar(pessoaEditar: Pessoa ,i: number, template: any){
-    this.pessoaSelecionada = pessoaEditar
-    this.index = i;
-    this.modalService.open(template, { size: 'lg' });  }
+
+  listAll() {
+    this.pessoaService.listAll().subscribe({
+      next: lista => {
+        this.lista = lista;
+      },
+      error: erro => {
+        alert('Exemplo de tratamento de erro/exception! Observe o erro no console.');
+        console.error(erro);
+      }
+    });
+  }
+
+  adicionar(modal: any) {
+    this.pessoaSelecionadaParaEdicao = new Pessoa();
+    this.modalService.open(modal, { size: 'sm' });
+  }
+
+  editar(modal: any, pessoa: Pessoa, indice: number) {
+    this.pessoaSelecionadaParaEdicao = Object.assign({}, pessoa);
+    this.indiceSelecionadoParaEdicao = indice;
+    this.modalService.open(modal, { size: 'sm' });
+  }
+
+  addOuEditarPessoa(pessoa: Pessoa) {
+    if (pessoa.id === 0) {
+      this.pessoaService.create(pessoa).subscribe({
+        next: pessoaCriada => {
+          this.lista.push(pessoaCriada);
+          this.modalService.dismissAll();
+        },
+        error: erro => {
+          console.error('Erro ao criar a pessoa. Consulte o console para mais detalhes.');
+          console.error(erro);
+        }
+      });
+    } else {
+      this.pessoaService.update(pessoa, pessoa.id).subscribe({
+        next: pessoaAtualizada => {
+          this.lista[this.indiceSelecionadoParaEdicao] = pessoaAtualizada;
+          this.modalService.dismissAll();
+        },
+        error: erro => {
+          console.error('Erro ao atualizar a pessoa. Consulte o console para mais detalhes.');
+          console.error(erro);
+        }
+      });
+    }
+  }
 }

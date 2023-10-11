@@ -1,23 +1,57 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Pessoa } from '../pessoa';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Pessoa } from '../Pessoa';
+import { PessoaService } from '../pessoa.service';
 
 @Component({
   selector: 'app-pessoas-details',
   templateUrl: './pessoas-details.component.html',
   styleUrls: ['./pessoas-details.component.scss']
 })
-export class PessoasDetailsComponent implements OnInit {
-  @Input() pessoa: Pessoa = new Pessoa("");
+export class PessoasdetailsComponent {
+  errorMessage!: string;
+  isError: boolean = false;
 
-  @Output() pessoaCriada = new EventEmitter<Pessoa>();
-  constructor(){
+  @Input() pessoa: Pessoa = new Pessoa();
+  @Output() retorno = new EventEmitter<Pessoa>();
+
+  pessoaService = inject(PessoaService);
+
+
+  constructor() {
 
   }
-  salvar(){
-    this.pessoaCriada.emit(this.pessoa);
+  create() {
+
+    this.pessoaService.create(this.pessoa).subscribe({
+      next: pessoa => { // QUANDO DÁ CERTO
+        this.retorno.emit(pessoa);
+        this.isError = false;
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+        this.isError = true;
+        this.errorMessage = erro; // Set the error message
+        console.error(erro);
+      }
+    });
   }
 
-  ngOnInit(): void {
-      this.pessoa = Object.assign({},this.pessoa);
+  update() {
+    this.pessoaService.update(this.pessoa, this.pessoa.id).subscribe({
+      next: pessoa => { // QUANDO DÁ CERTO
+        this.retorno.emit(pessoa);
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+        console.error(erro);
+      }
+    });
   }
+
+  
+
+
+
+
 }
+

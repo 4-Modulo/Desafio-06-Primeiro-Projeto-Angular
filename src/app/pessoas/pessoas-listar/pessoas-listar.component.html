@@ -2,7 +2,7 @@
   <div class="w-50 h-100">
     <div class="d-flex justify-content-between mb-3">
       <h3>Lista de Pessoas</h3>
-      <button type="button" (click)="abrirModal(cadastro)" class="btn btn-success">Nova Pessoa</button>
+      <button type="button" (click)="adicionar(cadastro )" class="btn btn-success">Nova Pessoa</button>
     </div>
     <table class="table table-striped w-100">
       <thead>
@@ -10,29 +10,32 @@
           <th scope="col">#</th>
           <th scope="col">Nome</th>
           <th scope="col">Idade</th>
-          <th scope="col">Ação</th>
+          <th d-flex justify-center scope="col">Ação</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let pessoa of pessoas; let i = index">
+        <tr *ngFor="let pessoa of lista; let i = index">
           <th scope="row">{{ pessoa.id }}</th>
           <td>{{ pessoa.nome }}</td>
           <td>{{ pessoa.idade }}</td>
           <td>
-            <button type="button" (click)="editar(pessoa, i, cadastro)" class="btn btn-warning btn-sm">Editar</button>
+          <td> 
+            <button class="btn btn-primary" (click)="editar(cadastro , pessoa, i)">Editar</button> - 
+            <button class="btn btn-danger" (click)="delete(pessoa.id)">Deletar</button>
           </td>
+
         </tr>
       </tbody>
-    </table>  
+    </table>
   </div>
 </div>
 <ng-template #cadastro let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Cadastrar Pessoa</h4>
+    <h4 class="modal-title"> Pessoa</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <app-pessoas-details [pessoa]="pessoaSelecionada" (pessoaCriada)="salvarPessoa($event)"></app-pessoas-details>
+    <app-pessoas-details [pessoa]="pessoaSelecionadaParaEdicao"
+      (retorno)="addOuEditarPessoa($event)"></app-pessoas-details>
   </div>
- 
 </ng-template>
