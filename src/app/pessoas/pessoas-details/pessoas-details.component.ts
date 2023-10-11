@@ -17,9 +17,7 @@ export class PessoasdetailsComponent {
   pessoaService = inject(PessoaService);
 
 
-  constructor() {
-
-  }
+  constructor() {  }
   create() {
 
     this.pessoaService.create(this.pessoa).subscribe({
@@ -28,7 +26,6 @@ export class PessoasdetailsComponent {
         this.isError = false;
       },
       error: erro => { // QUANDO DÁ ERRO
-        alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
         this.isError = true;
         this.errorMessage = erro; // Set the error message
         console.error(erro);
