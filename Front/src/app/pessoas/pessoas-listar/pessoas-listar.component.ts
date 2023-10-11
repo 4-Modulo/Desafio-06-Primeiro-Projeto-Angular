@@ -47,7 +47,7 @@ export class PessoasListarComponent {
 
   adicionar(modal: any) {
     this.pessoaSelecionadaParaEdicao = new Pessoa();
-    this.modalService.open(modal, { size: 'sm' });
+    this.modalService.open(modal, { size:  'sm'});
   }
 
   editar(modal: any, pessoa: Pessoa, indice: number) {

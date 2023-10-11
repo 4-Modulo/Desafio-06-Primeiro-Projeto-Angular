@@ -11,6 +11,6 @@
         <input type="number" [(ngModel)]="carro.ano" name="ano" class="form-control" id="ano"
           placeholder="Ano do Modelo">
       </div>
-      <button  type="button" (click)="salvar()" class="w-25 btn btn-success">Cadastrar</button>
-    </form>
+      <button *ngIf="carro.id == null" type="button" (click)="create()" class="w-25 btn btn-success">New</button>
+      <button *ngIf="carro.id > 0" type="button" (click)="update()" class="w-25 btn btn-success">Salvar</button>    </form>
   </div>

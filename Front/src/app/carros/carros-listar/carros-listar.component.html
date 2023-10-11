@@ -2,7 +2,7 @@
     <div class="w-50 h-100">
       <div class="d-flex justify-content-between mb-3">
         <h3>Lista de Carros</h3>
-        <button type="button" (click)="abrirModal(cadastro)" class="btn btn-success">Novo Carro</button>
+        <button type="button" (click)="adicionar(cadastro)" class="btn btn-success">Novo Carro</button>
       </div>
       <table class="table table-striped w-100">
         <thead>
@@ -14,12 +14,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let carro of carros; let i = index">
+          <tr *ngFor="let carro of lista; let i = index">
             <th scope="row">{{ carro.id }}</th>
             <td>{{ carro.modelo }}</td>
             <td>{{ carro.ano }}</td>
             <td>
-              <button type="button" (click)="editar(carro, i, cadastro)" class="btn btn-warning btn-sm">Editar</button>
+              <button class="btn btn-primary" (click)="editar(cadastro , carro, i)">Editar</button> - 
+            <button class="btn btn-danger" (click)="delete(carro.id)">Deletar</button>
             </td>
           </tr>
         </tbody>
@@ -33,6 +34,7 @@
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <app-carros-details [carro]="carroSelecionado" (carroCriado)="salvarEditarCarro($event)"></app-carros-details>
+      <app-carros-details [carro]="carroSelecionadaParaEdicao"
+        (retorno)="addOuEditarPessoa($event)"></app-carros-details>
     </div>
   </ng-template>
